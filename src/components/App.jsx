@@ -1,4 +1,6 @@
 import React, { useState, useReducer } from "react";
+
+// Reducer function
 const reducer = (state, action) => {
   if (action.type === "add-todo") {
     return {
@@ -14,14 +16,24 @@ const reducer = (state, action) => {
       }),
     };
   }
+  if (action.type === "remove-todo") {
+    return {
+      todos: state.todos.filter((item, idx) => {
+        return idx !== action.payload ? { item } : "";
+      }),
+    };
+  }
 };
 function App() {
+  // States
   const [newItem, setNewItem] = useState("");
   const [{ todos }, dispatch] = useReducer(reducer, { todos: [] });
 
   const onClickHandler = (e) => {
     e.preventDefault();
+    console.log(newItem);
     if (newItem.trim().lenghth !== 0) {
+      // Render the list only if the user enter sth
       dispatch({ type: "add-todo", payload: newItem });
     }
     setNewItem("");
@@ -44,14 +56,27 @@ function App() {
         <ul>
           {todos.map((item, index) => {
             return (
-              <li
-                style={{ textDecoration: item.compelted ? "line-through" : "" }}
-                onClick={() => {
-                  dispatch({ type: "toggle-todo", payload: index });
-                }}
-              >
-                {item.item}
-              </li>
+              <div key={item.item} style={{ display: "flex", gap: "0.5rem" }}>
+                <li
+                  // Cross the item if it is compeleted
+                  style={{
+                    textDecoration: item.compelted ? "line-through" : "",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => {
+                    dispatch({ type: "toggle-todo", payload: index });
+                  }}
+                >
+                  {item.item}
+                </li>
+                <button
+                  onClick={() => {
+                    dispatch({ type: "remove-todo", payload: index });
+                  }}
+                >
+                  X
+                </button>
+              </div>
             );
           })}
         </ul>

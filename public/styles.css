@@ -60,9 +60,8 @@ button {
   border: none;
   font-family: "Architects Daughter", cursive;
   text-decoration: none;
-  padding-bottom: 3px;
   border-radius: 5px;
-  background-color: #ffeaa7;
+  /* background-color: #ffeaa7; */
 }
 button span {
   background: #f1f5f8;
@@ -76,4 +75,7 @@ li {
   text-align: left;
   position: relative;
   padding: 0.5rem;
+}
+li button {
+  background-color: #fff;
 }

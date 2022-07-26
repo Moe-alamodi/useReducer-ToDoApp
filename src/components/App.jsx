@@ -3,9 +3,11 @@ import React, { useState, useReducer } from "react";
 // Reducer function
 const reducer = (state, action) => {
   if (action.type === "add-todo") {
-    return {
-      todos: [{ item: action.payload, compelted: false }, ...state.todos],
-    };
+    console.log(state.todos);
+    if (state.todos)
+      return {
+        todos: [{ item: action.payload, compelted: false }, ...state.todos],
+      };
   }
   if (action.type === "toggle-todo") {
     return {
@@ -32,10 +34,12 @@ function App() {
   const onClickHandler = (e) => {
     e.preventDefault();
     console.log(newItem);
-    if (newItem.trim().lenghth !== 0) {
-      // Render the list only if the user enter sth
+
+    // Render the list only if the user enter sth
+    if (newItem.trim().length !== 0) {
       dispatch({ type: "add-todo", payload: newItem });
     }
+
     setNewItem("");
   };
   const inputHandler = (event) => {
@@ -53,33 +57,35 @@ function App() {
         </button>
       </div>
       <div>
-        <ul>
-          {todos.map((item, index) => {
-            return (
-              <div key={item.item} style={{ display: "flex", gap: "0.5rem" }}>
-                <li
-                  // Cross the item if it is compeleted
-                  style={{
-                    textDecoration: item.compelted ? "line-through" : "",
-                    cursor: "pointer",
-                  }}
-                  onClick={() => {
-                    dispatch({ type: "toggle-todo", payload: index });
-                  }}
-                >
-                  {item.item}
-                </li>
-                <button
-                  onClick={() => {
-                    dispatch({ type: "remove-todo", payload: index });
-                  }}
-                >
-                  X
-                </button>
-              </div>
-            );
-          })}
-        </ul>
+        <React.StrictMode>
+          <ul>
+            {todos.map((item, index) => {
+              return (
+                <div key={item.item} style={{ display: "flex", gap: "0.5rem" }}>
+                  <li
+                    // Cross the item if it is compeleted
+                    style={{
+                      textDecoration: item.compelted ? "line-through" : "",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => {
+                      dispatch({ type: "toggle-todo", payload: index });
+                    }}
+                  >
+                    {item.item}
+                  </li>
+                  <button
+                    onClick={() => {
+                      dispatch({ type: "remove-todo", payload: index });
+                    }}
+                  >
+                    X
+                  </button>
+                </div>
+              );
+            })}
+          </ul>
+        </React.StrictMode>
       </div>
     </div>
   );

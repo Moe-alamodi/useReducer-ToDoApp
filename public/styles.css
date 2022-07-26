@@ -53,6 +53,7 @@ body {
   color: hsla(260, 2%, 25%, 0.7);
   width: 70%;
   margin-bottom: 20px;
+  margin-right: 10px;
 }
 
 button {
@@ -62,6 +63,7 @@ button {
   text-decoration: none;
   border-radius: 5px;
   /* background-color: #ffeaa7; */
+  cursor: pointer;
 }
 button span {
   background: #f1f5f8;
